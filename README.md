@@ -1,260 +1,341 @@
-# IPL Auction Analysis 2022
+# 🏏 IPL Auction 2026 Web Scraper & Data Analysis
 
-A comprehensive data analysis project of the Indian Premier League (IPL) 2022 player auction, including web scraping, data cleaning, SQL analysis, Python EDA, and visualizations.
-
----
-
-## Project Overview
-
-This project analyzes the IPL 2022 player auction to gain insights into:
-- Player auction prices
-- Team spending patterns
-- Distribution of player roles
-- Most expensive players
-- Unsold players
+> A Python-based web scraping project that extracts IPL Auction 2026 player information from the official IPL website, cleans the data, and exports it for further analysis using Pandas and SQL.
 
 ---
 
-## Dataset Source
+## 📌 Project Overview
 
-The dataset was collected from publicly available IPL auction data. The data includes:
-- Player names
-- Nationality
-- Role
-- Base price
-- Sold price
-- Teams
+The **IPL Auction 2026 Web Scraper** is a beginner-friendly data collection project built using Python. It demonstrates the complete workflow of acquiring data from a website, parsing HTML content, organizing the extracted information into structured datasets, and preparing it for data analysis.
 
----
+This project was created to strengthen practical skills in:
 
-## Technologies Used
-
-- **Python 3.14**: Core programming language
-- **Pandas**: Data manipulation and analysis
-- **Matplotlib**: Data visualization
-- **SQLAlchemy**: Database connection
-- **PyMySQL**: MySQL driver
-- **Selenium**: (Optional) Web scraping
-- **MySQL**: Database management system
-- **Git**: Version control
+* Web Scraping
+* Data Collection
+* Data Cleaning
+* Data Analysis
+* Python Programming
+* SQL Integration
 
 ---
 
-## Folder Structure
+## 🎯 Project Objectives
 
-```
-IPL-Auction-Analysis/
-├── analysis/           # Exploratory Data Analysis (EDA) scripts
-│   └── eda.py
-├── cleaning/           # Data cleaning scripts
-│   ├── clean_data.py
-│   └── process_data.py
-├── images/             # Visualization outputs
-├── raw_data/           # Raw and cleaned datasets
-│   ├── ipl_2022_dataset.csv
-│   ├── players_clean.csv
+* Scrape IPL Auction player information from the official IPL website.
+* Extract structured player data.
+* Store the collected information in CSV format.
+* Prepare the dataset for SQL and Python analysis.
+* Demonstrate an end-to-end data collection workflow.
+
+---
+
+## 🛠 Tech Stack
+
+| Category               | Technologies             |
+| ---------------------- | ------------------------ |
+| Language               | Python 3                 |
+| Web Scraping           | Requests, BeautifulSoup4 |
+| Data Processing        | Pandas, NumPy            |
+| Notebook               | Jupyter Notebook         |
+| Database (Future)      | MySQL                    |
+| Visualization (Future) | Matplotlib, Plotly       |
+
+---
+
+## 📂 Project Structure
+
+```text
+IPL-Auction-Web-Scraper/
+│
+├── ipl-auction-web-scraper.ipynb
+├── requirements.txt
+├── README.md
+├── raw_data/
 │   └── players_raw.csv
-├── scraper/            # Web scraping scripts
-│   └── scraper.py
-├── sql/                # SQL schema and queries
-│   ├── analysis.sql
-│   ├── import_data.py
-│   └── schema.sql
-├── visualization/      # Data visualization scripts
-│   └── charts.py
-├── .gitignore
-├── config.py           # Centralized configuration
-├── requirements.txt    # Dependencies
-└── README.md           # Project documentation
+├── processed_data/
+│   └── players_clean.csv
+├── sql/
+│   ├── schema.sql
+│   └── analysis.sql
+├── images/
+└── .gitignore
 ```
 
 ---
 
-## Workflow Diagram
+## ⚙️ Installation
 
-```
-1. Raw Data Collection
-       ↓
-2. Data Cleaning
-       ↓
-3. Exploratory Data Analysis (EDA)
-       ↓
-4. Data Visualization
-       ↓
-5. SQL Database Import
-       ↓
-6. SQL Analysis
-```
+### Clone the Repository
 
----
-
-## SQL Queries
-
-The `sql/analysis.sql` file contains all SQL queries used for analysis:
-
-1. **Highest Sold Player**:
-   ```sql
-   SELECT * FROM players ORDER BY sold_price DESC LIMIT 1;
-   ```
-
-2. **Average Team Spending**:
-   ```sql
-   SELECT team, AVG(sold_price) AS average_spending FROM players GROUP BY team;
-   ```
-
-3. **Top 10 Expensive Players**:
-   ```sql
-   SELECT player_name, sold_price FROM players ORDER BY sold_price DESC LIMIT 10;
-   ```
-
-4. **Players by Country**:
-   ```sql
-   SELECT country, COUNT(*) AS count FROM players WHERE country IS NOT NULL GROUP BY country;
-   ```
-
-5. **Unsold Players**:
-   ```sql
-   SELECT * FROM players WHERE sold_price IS NULL;
-   ```
-
-6. **Total Spending by Team**:
-   ```sql
-   SELECT team, SUM(sold_price) AS total_spending FROM players GROUP BY team ORDER BY total_spending DESC;
-   ```
-
----
-
-## Visualizations
-
-All visualizations are saved in the `images/` directory:
-
-1. **Top 10 Sold Players** (`images/top10_players.png`)
-   - Horizontal bar chart showing the 10 most expensive players
-2. **Team Spending** (`images/team_spending.png`)
-   - Horizontal bar chart of total spending per team
-3. **Player Roles** (`images/role_distribution.png`)
-   - Pie chart of player role distribution
-4. **Price Distribution** (`images/price_distribution.png`)
-   - Histogram of sold prices
-5. **Price Box Plot** (`images/price_boxplot.png`)
-   - Box plot showing price distribution and outliers
-
----
-
-## Results
-
-Key insights from the analysis:
-
-1. **Total Players**: 632 players were part of the auction
-2. **Most Expensive Player**: KL Rahul (Rs. 170,000,000)
-3. **Average Sold Price**: Rs. 36,957,806
-4. **Median Sold Price**: Rs. 19,000,000
-5. **Highest Spending Team**: Mumbai Indians (Rs. 899,000,000)
-6. **Player Roles**:
-   - All-rounders: 241
-   - Bowlers: 215
-   - Batters: 112
-   - Wicket-keepers: 64
-7. **Unsold Players**: 395 (62.5%)
-
----
-
-## Challenges
-
-1. **Unicode Encoding**: Handling currency symbols in logs
-2. **Database Setup**: Configuring MySQL connection
-3. **Data Cleaning**: Converting price formats (Cr, Lakh) to numeric
-4. **Project Structure**: Organizing files for professional presentation
-
----
-
-## Future Improvements
-
-1. Add country data from additional sources
-2. Include more detailed player stats
-3. Create interactive visualizations with Plotly
-4. Add a web dashboard for exploring the data
-5. Expand to multiple IPL seasons for trend analysis
-6. Add unit tests for all scripts
-7. Implement CI/CD pipeline
-
----
-
-## Screenshots
-
-*(Add screenshots of visualizations here)*
-
----
-
-## Installation
-
-1. Clone the repository:
-   ```bash
-   git clone <repository-url>
-   cd IPL-Auction-Analysis
-   ```
-
-2. Create and activate a virtual environment:
-   ```bash
-   python -m venv venv
-   # On Windows:
-   .\venv\Scripts\activate
-   # On macOS/Linux:
-   source venv/bin/activate
-   ```
-
-3. Install dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-4. Set up MySQL (optional):
-   - Install MySQL server
-   - Create a database (e.g., `ipl_auction`)
-   - Update database credentials in `config.py`
-
----
-
-## Usage
-
-### 1. Data Cleaning
 ```bash
-python cleaning/clean_data.py
+git clone https://github.com/your-username/IPL-Auction-Web-Scraper.git
 ```
 
-### 2. Exploratory Data Analysis
+Move into the project directory:
+
 ```bash
-python analysis/eda.py
+cd IPL-Auction-Web-Scraper
 ```
 
-### 3. Create Visualizations
+Install all required libraries:
+
 ```bash
-python visualization/charts.py
+pip install -r requirements.txt
 ```
-
-### 4. Import Data to MySQL (Optional)
-```bash
-python sql/import_data.py
-```
-
-### 5. SQL Analysis
-Execute queries from `sql/analysis.sql` in your MySQL client.
 
 ---
 
-## License
+## ▶️ Running the Project
 
-[Your License Here]
+Launch Jupyter Notebook:
+
+```bash
+jupyter notebook
+```
+
+Open:
+
+```text
+ipl-auction-web-scraper.ipynb
+```
+
+Run all notebook cells sequentially.
 
 ---
 
-## Contributors
+## 🔄 Project Workflow
 
-[Your Name]
+```text
+Official IPL Website
+        │
+        ▼
+HTTP Request
+        │
+        ▼
+HTML Parsing (BeautifulSoup)
+        │
+        ▼
+Extract Player Information
+        │
+        ▼
+Create Pandas DataFrame
+        │
+        ▼
+Clean & Process Data
+        │
+        ▼
+Export CSV
+        │
+        ▼
+SQL Analysis (Future)
+        │
+        ▼
+Visualization Dashboard (Future)
+```
 
 ---
 
-## Acknowledgments
+## 📊 Features
 
-- IPL official website for data
-- All open-source contributors to the libraries used
+* Fetch webpage content using Requests
+* Parse HTML using BeautifulSoup
+* Extract structured auction data
+* Convert extracted data into a Pandas DataFrame
+* Export results to CSV
+* Beginner-friendly project structure
+* Easy to extend for advanced analytics
+
+---
+
+## 📋 Expected Dataset
+
+The scraper aims to collect information such as:
+
+| Column         |
+| -------------- |
+| Player Name    |
+| Country        |
+| Role           |
+| Base Price     |
+| Sold Price     |
+| Team           |
+| Auction Status |
+| Auction Year   |
+
+---
+
+## 📈 Future Analysis
+
+After collecting the data, it can be used to answer questions like:
+
+* Which player received the highest bid?
+* Which team spent the most money?
+* Which country had the most players?
+* Average player price.
+* Team-wise spending.
+* Unsold players.
+* Role-wise distribution.
+* Most expensive overseas players.
+
+---
+
+## 📊 Future Visualizations
+
+Planned visualizations include:
+
+* Top 10 Highest Sold Players
+* Team Spending Analysis
+* Country-wise Player Distribution
+* Auction Price Distribution
+* Role Distribution
+* Base Price vs Sold Price
+* Sold vs Unsold Players
+
+---
+
+## 🗄 SQL Analysis (Planned)
+
+Example SQL queries:
+
+* Highest sold player
+* Team-wise expenditure
+* Country-wise player count
+* Unsold players
+* Average sold price
+* Top 10 expensive players
+
+---
+
+## 📚 Python Libraries Used
+
+```python
+requests
+beautifulsoup4
+pandas
+numpy
+```
+
+Install using:
+
+```bash
+pip install requests beautifulsoup4 pandas numpy
+```
+
+---
+
+## 💡 Skills Demonstrated
+
+* Python Programming
+* Web Scraping
+* HTML Parsing
+* Data Collection
+* Data Cleaning
+* Data Manipulation
+* CSV Export
+* Pandas
+* Jupyter Notebook
+* Problem Solving
+
+---
+
+## ⚠️ Current Limitation
+
+The official IPL Auction website loads most of its data dynamically using **JavaScript**.
+
+Since this project currently uses **Requests + BeautifulSoup**, dynamically rendered content may not be available in the downloaded HTML.
+
+As a result, some auction tables may not be extracted successfully.
+
+### Planned Solution
+
+The next version of this project will use:
+
+* Selenium
+* ChromeDriver
+* Explicit Waits
+* Dynamic Page Handling
+
+to scrape JavaScript-rendered content accurately.
+
+---
+
+## 🚀 Future Improvements
+
+* Selenium-based scraping
+* Automatic data cleaning
+* MySQL database integration
+* SQL analytics
+* Interactive dashboard
+* Scheduled data collection
+* Logging system
+* Exception handling
+* Modular Python scripts
+* Power BI dashboard
+* Automated report generation
+
+---
+
+## 📸 Screenshots
+
+Add screenshots here after running the project.
+
+Example:
+
+```
+images/
+├── scraper_output.png
+├── dataframe_preview.png
+├── csv_output.png
+├── sql_queries.png
+└── charts.png
+```
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome.
+
+If you'd like to improve this project:
+
+1. Fork the repository
+2. Create a feature branch
+3. Commit your changes
+4. Push to your branch
+5. Open a Pull Request
+
+---
+
+## 📜 License
+
+This project is licensed under the MIT License.
+
+---
+
+## 👨‍💻 Author
+
+**Jayesh Marathe**
+
+Computer Science Student
+
+Python • SQL • Data Analytics • Data Science
+
+GitHub: https://github.com/jayesh190704
+
+LinkedIn: https://www.linkedin.com/in/jayeshmarathe53/
+
+---
+
+## ⭐ If you found this project useful
+
+Please consider giving it a **Star ⭐** on GitHub.
+
+It helps support the project and motivates future improvements.
+
+---
+
+## 📬 Contact
+
+If you have any suggestions or feedback, feel free to connect through GitHub or LinkedIn.
+
+Happy Coding! 🚀
